@@ -26,4 +26,7 @@ urlpatterns = [
     path('users/', include('users.urls')), 
     path('products/', include('products.urls')),
     path('favorites/', include('favorites.urls')),
+    path(
+        '', include('autocomplete.urls', namespace="autocomplete")
+    ),
 ]

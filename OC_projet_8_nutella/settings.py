@@ -26,7 +26,7 @@ SECRET_KEY = '^pt(p+)xv+9s9mnywpf3gkjn2^nkmwm&wi)@7$!dy0#pqlqpq)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["jeremy-p8.herokuapps.com", "localhost"]
+ALLOWED_HOSTS = ["jeremy-p8.herokuapps.com", "localhost", '127.0.0.1']
 
 
 # Application definition
@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # local applications
     'favorites.apps.FavoritesConfig',
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
     'openfoodfacts.apps.OpenfoodfactsConfig',
     'home.apps.HomeConfig',
+    "autocomplete.apps.AutocompleteConfig"
 ]
 
 MIDDLEWARE = [
@@ -82,7 +84,7 @@ WSGI_APPLICATION = 'OC_projet_8_nutella.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3'
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -109,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
