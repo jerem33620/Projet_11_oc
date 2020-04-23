@@ -8,7 +8,7 @@ class ProductManager(models.Manager):
         from .models import Product
 
         substitutes = []
-        product = None
+        # product = None
         products = Product.objects.filter(product_name__icontains=searched_name)
         if products:
             product = products[0]
