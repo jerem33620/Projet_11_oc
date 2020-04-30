@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["jeremy-p8.herokuapps.com", "localhost", '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'home.apps.HomeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,8 +44,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
     'openfoodfacts.apps.OpenfoodfactsConfig',
-    'home.apps.HomeConfig',
-    "autocomplete.apps.AutocompleteConfig"
+    'autocomplete.apps.AutocompleteConfig'
 ]
 
 MIDDLEWARE = [
@@ -62,7 +62,7 @@ ROOT_URLCONF = 'OC_projet_8_nutella.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -153,6 +153,14 @@ AUTH_USER_MODEL = "users.User"
 MAX_RESULT = 6
 
 LOGIN_URL = "/users/login"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'jeremyprojet11@gmail.com'
+EMAIL_HOST_PASSWORD = 'pascaph2466'
+EMAIL_USE_TLS = True
 
 if os.environ.get("ENV")=="production":
     DEBUG = False

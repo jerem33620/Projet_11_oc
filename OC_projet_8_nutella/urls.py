@@ -23,10 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('legales_notices/', views.legales_notices, name='legales_notices'),
-    path('users/', include('users.urls')), 
+    path('users/', include('users.urls')),
+    path('users/', include('django.contrib.auth.urls')),
     path('products/', include('products.urls')),
     path('favorites/', include('favorites.urls')),
     path(
-        '', include('autocomplete.urls', namespace="autocomplete")
+        'autocomplete/', include('autocomplete.urls', namespace="autocomplete")
     ),
 ]
