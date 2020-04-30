@@ -13,7 +13,8 @@
 
     <form action="{% url 'research' %}" method="get" class="header-form">
         {% csrf_token %}
-            <input type="text" id="product-input" class="form-control product-input">
+        <input type="text" id="product-input" name="product" class="form-control product-input">
+        <p><button type="submit">Rechercher</button></p>
     </form>
     
 
@@ -72,11 +73,3 @@
     </section>
 
 {% endblock %}
-
-{% block scripts %}
-    <script>
-        const autocomplete_url = "{% url 'autocomplete:complete' %}";
-    </script>
-    {{ block.super }}
-    <script src="{% static 'js/autocomplete.js' %}"></script>
-{% endblock scripts %}

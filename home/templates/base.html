@@ -48,7 +48,7 @@
                         <div class="container">
                             <form action="{% url 'research' %}" method="get" class="header-form">
                                 {% csrf_token %}
-                                    <input type="text" id="product-input" class="form-control product-input">
+                                <input type="text" id="product-input" name="product" class="form-control product-input">
                             </form>
                         </div>
                     </li>
@@ -103,7 +103,7 @@
         </div>
     </footer>
 
-    {% block scripts %}
+    
     <!-- Bootstrap core JavaScript -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -113,12 +113,16 @@
     <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
 
     <!-- jquery-ui -->
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 
     <!-- Custom scripts for this template -->
     <script src="{% static 'js/creative.min.js' %}"></script>
-    {% endblock %}
+    <script>
+        const autocomplete_url = "{% url 'autocomplete:complete' %}";
+    </script>
+    {{ block.super }}
+    <script src="{% static 'js/autocomplete.js' %}"></script>
+    
 </body>
 
 </html>
