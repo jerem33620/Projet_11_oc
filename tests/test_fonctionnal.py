@@ -1,7 +1,10 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth import get_user_model
+from django.core import mail
 
 from selenium import webdriver
+from users.models import User
+
 
 
 chrome_options = webdriver.ChromeOptions()
@@ -9,28 +12,30 @@ chrome_options.headless = True
 
 class SeleniumChromeFunctionalTestCases(StaticLiveServerTestCase):
     """Tests fonctionnels utilisant le navigateur Web GoogleChrome."""
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.driver = webdriver.Chrome(chrome_options=chrome_options)
+
+        cls.driver.implicitly_wait(30)
+        cls.driver.maximize_window()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
 
     def setUp(self):
-        self.driver = webdriver.Chrome(chrome_options=chrome_options)
-        self.driver.get(self.live_server_url)
-
-        self.driver.implicitly_wait(30)
-        self.driver.maximize_window()
-
-        User = get_user_model()
-        User.objects.create_user(username="jerem", password="Jerem33")
-
-
-    def tearDown(self):
-        self.driver.close()
+        User.objects.create_user(username="testuser", password="blabla12", email="jeremyguyot@orange.fr")
 
     def test_user_can_disconnect_and_connect(self):
+        self.driver.get(self.live_server_url)
         self.driver.find_element_by_css_selector('#button-login').click()
-        self.driver.find_element_by_css_selector('#id_username').send_keys("jerem")
-        self.driver.find_element_by_css_selector('#id_password').send_keys("Jerem33")
-        self.driver.find_element_by_css_selector('#button-submit').click()
+        self.driver.find_element_by_css_selector('#button-passcode').click()
+        self.driver.find_element_by_css_selector('#id_email').send_keys('jeremyguyot@orange.fr')
+        self.driver.find_element_by_css_selector('#button-send-reset').click()
 
-        logout = self.driver.find_element_by_css_selector('#button-logout')
+        #logout = self.driver.find_element_by_css_selector('#button-logout')
 
-        self.assertEqual(logout.text, "", "Le bouton de déconnexion devrait être disponible.")
-    
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Réinitialisation du mot de passe", mail.outbox[0].subject)
