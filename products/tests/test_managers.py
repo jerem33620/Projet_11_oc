@@ -49,15 +49,13 @@ class TestManagersPageTestCase(TestCase):
         )
 
     def test_find_product_find_no_product(self):
-        product_manager = ProductManager()
-        products, product = product_manager.find_products("gonuts-dailylife")
+        products, product = Product.objects.find_products("gonuts-dailylife")
 
         self.assertEqual(len(products), 0)
         self.assertEqual(product, self.product_b)
 
     def test_find_products_find_a_product(self):
-        product_manager = ProductManager()
-        products, product = product_manager.find_products("nutella-ferrero")
+        products, product = Product.objects.find_products("nutella-ferrero")
 
         self.assertEqual(len(products), 1)
         self.assertEqual(products[0], self.product_b)

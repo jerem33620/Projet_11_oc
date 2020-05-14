@@ -9,11 +9,9 @@ def research(request):
     substitutes = []
     product = None
     form = SearchForm()
-    print(request.GET.get("product"))
     if request.method == "GET":
         research_form = SearchForm(request.GET or None)
         if research_form.is_valid():
-            print("petit message")
             search_name = research_form.cleaned_data["product"]
             substitutes, product = Product.objects.find_products(search_name)
             if product: 
