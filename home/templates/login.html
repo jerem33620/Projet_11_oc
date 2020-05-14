@@ -26,7 +26,7 @@
         {% endfor %}
         <button type="submit" id="button-submit">Se connecter</button>
         <p><a href="{% url 'signup' %}">Nouveau sur le site? Inscrivez-vous</a></p>
-        <p><a href="{% url 'password_reset' %}">Mot de passe oublié? Réinitialisez votre mot de passe</a></p>
+        <p><a id="button-passcode" href="{% url 'password_reset' %}">Mot de passe oublié? Réinitialisez votre mot de passe</a></p>
     </form>
     {% endblock %}
 </header>
