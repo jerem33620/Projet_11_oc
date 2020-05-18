@@ -8,7 +8,7 @@ from users.models import User
 
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.headless = True
+chrome_options.headless = False
 
 class SeleniumChromeFunctionalTestCases(StaticLiveServerTestCase):
     """Tests fonctionnels utilisant le navigateur Web GoogleChrome."""
