@@ -57,7 +57,7 @@ Enfin pour rajouter les produits dans la DataBase:
 Pour lancer votre tests vous devrez utiliser les lignes de code suivante:
 
 ```
-- $ coverage run --source= manage.py test
+- $ coverage run --source=. manage.py test
 - $ coverage report
 ```
 
