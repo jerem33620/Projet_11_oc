@@ -6,23 +6,27 @@ from selenium import webdriver
 from users.models import User
 
 
-
 chrome_options = webdriver.ChromeOptions()
-chrome_options.headless = False
+chrome_options.add_argument('headless')
+chrome_options.add_argument('--disable-infobars')
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--remote-debugging-port=9222')
+chrome_options.add_argument('window-size=1200x600')
 
 class SeleniumChromeFunctionalTestCases(StaticLiveServerTestCase):
     """Tests fonctionnels utilisant le navigateur Web GoogleChrome."""
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.driver = webdriver.Chrome(chrome_options=chrome_options)
-
         cls.driver.implicitly_wait(30)
-        cls.driver.maximize_window()
+        #cls.driver.maximize_window()
 
     @classmethod
     def tearDownClass(cls):
-        cls.driver.quit()
+        cls.driver.close()
         super().tearDownClass()
 
     def setUp(self):
